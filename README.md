@@ -15,7 +15,16 @@ The `sample_metadata.csv` will contain the following fields:
 | Sample ID | phylum | class | order | family | subfamily | genus | species | subspecies | type_status | specimen_voucher | collection_date | geographic_location | latitude | longitude |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | UK001-A01 | Arthropoda | Insecta | Coleoptera | Carabidae |  | Carabus | speciousus | subspeciousis | Type | NHMUK012345678 |	| United Kingdom | |
-
+```
+Sample ID: Sample unique identifier
+phylum->subspecies: Hierarchical taxonomic lineage information for sample
+type_status: Whether sample is a type specimen or not
+specimen_voucher: Museum specimen voucher code/Museum ID/NHMUK museum barcode number
+collection_data: Date specimen was collected
+geographic_location: Country or Ocean in which the specimen was collected
+latitude: latitudinal co-ordinate of sampling location
+longitude: longitudinal co-ordinate of sampling location
+```
 
 ## 2. Sample processing
 1..
