@@ -14,7 +14,7 @@ This section describes the process of generating the sample_metadata.csv file fr
 The `sample_metadata.csv` will contain the following fields:
 | Sample ID | phylum | class | order | family | subfamily | genus | species | subspecies | type_status | specimen_voucher | collection_date | geographic_location | latitude | longitude |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| UK001-A01 | Arthropoda | Insecta | Coleoptera | Carabidae |  | Carabus | speciousus | subspeciousis | Type | NHMUK012345678 |	United Kingdom | |
+| UK001-A01 | Arthropoda | Insecta | Coleoptera | Carabidae |  | Carabus | speciousus | subspeciousis | Type | NHMUK012345678 |	| United Kingdom | |
 
 
 ## 2. Sample processing
