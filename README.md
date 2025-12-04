@@ -9,7 +9,7 @@ This section describes the process of generating the sample_metadata.csv file fr
 2. Once the speciment sampling spreadsheet is completed, ensure you are 'on' the sample_metadata sheet, click `File`, `Export`, and `Download CSV as UTF-8` (encoding). This will automatically save the sample_metadata sheet to your `Downloads/` folder as `UK*_processing(sample_metadata).csv`.
 3. Copy this newly generated `sample_metadata.csv` into [`UKBOL_Bioinf/sample_metadata/`](https://naturalhistorymuseum.sharepoint.com/:f:/r/sites/UKBarcodeofLife/Shared%20Documents/UKBOL_accelerated/UKBOL_Bioinf/sample_metadata?csf=1&web=1&e=ZIbj7G) and update the [`batch tracking`](https://naturalhistorymuseum.sharepoint.com/:x:/r/sites/UKBarcodeofLife/Shared%20Documents/UKBOL_accelerated/UKBOL%20batch%20tracker.xlsx?d=w5ccef39617a3412b86db93ecedacffbe&csf=1&web=1&e=SqdTxL) spreadsheet accordingly.
 4. Copy `sample_metadata.csv` from `UKBOL_Bioinf/sample_metadata/` over to the Crop Diversity cluster (`~/projects/nhm/museomix/UKBOL_accelerated/sample_metadata/`) and perform a sanitisation check, correcting any data if necessary. The `sample_metadata.csv` is now ready for downstream analyses.
-*Sanitisation check: Manually check ID and taxonomic lineage columns for specieal characters, trailing spaces, tabs, etc and remove them.
+* Sanitisation check: Manually check ID and taxonomic lineage columns for specieal characters, trailing spaces, tabs, etc and remove them.
 
 The `sample_metadata.csv` will contain the following fields:
 | Sample ID | phylum | class | order | family | subfamily | genus | species | subspecies | type_status | specimen_voucher | collection_date | geographic_location | latitude | longitude |
@@ -27,14 +27,33 @@ longitude: longitudinal co-ordinate of sampling location
 ```
 
 ## 2. Sample processing
-This section outlines the process of generating the `samples.csv` file (using the sample_metadata.csv file) required to run the BeeGees and skim2mito pipelines.
-1..
-2..
-3..
-4..
+This section outlines the process of generating the samples sheet file (using the sample_metadata.csv file) required to run the BeeGees and skim2mito pipelines.
+1. Firstly, transfer sequence data from NHM cluster to Crop Diversity cluster:
+```
+TBD, probably an rsync command like:
+  rsync -avzP /PATH/TO/VALENTINE/DIR [USERNAME]@gruffalo.cropdiversity.ac.uk:/PATH/TO/GRUFFALO/TARGET/DIR
+```
+2. Once the transfer is complete, verify the MD% checksum is correct using:
+```
+Find CLI tool to quickly do MD5 checks
+``` 
+3. Run `sample_processing.py` to generate the samples sheet:
+```
+  python sample_processing.py [seq_data_parent_directory] path/to/[sample_metadata_file] path/to/[output_directory] --identifier [column_name]
+
+Additional optional arguments:
+--output-prefix [output_prefix]: Prefix for output files (defaults to input parent directory name)
+--merge: Prefer '*_merged' directories when available, fall back to non-suffixed directories
+```
+4.Manually check generated samples sheet paths and taxonomic data parsing proceeded correctly.
+
+The generated `[samples].csv` will contain the following fields:
+| ID | forward | reverse | phylum | class | order | family | genus | species |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | 
+| UK001-A01 | abs/path/to/R1.fq.gz | abs/path/to/R2.fq.gz | Arthropoda | Insecta | Coleoptera | Carabidae | Carabus | speciousus |
+
 5..
 
-Transfer sequence data from NHM cluster to Crop Diversity cluster:
 ```
 ```
 
