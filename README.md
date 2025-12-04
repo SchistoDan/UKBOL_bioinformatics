@@ -75,11 +75,12 @@ The generated `[samples].csv` will contain the following fields:
   python taxid_resolver.py --input [samples sheet] --email [NCBI email address] --api [NCBI API key]
 ```
 * NCBI API credentials can be created by following the instructions described [here](https://support.nlm.nih.gov/kbArticle/?pn=KA-05317).
-2. The script will retrieve and append the taxid to the input samples sheet, as well as `matched_rank` and `lineage_mismatch` columns. Manually check output samples sheet to confirm `lineage_mismatch` == NO.
+2. The script will retrieve and append the taxid to the input samples sheet, as well as `matched_rank` and `lineage_mismatch` columns.
 ```
 matched_rank: Contains the rank at which a valid taxonomic identifier could be retrieved (e.g. species)
 lineage_mismatch: Boolean (YES/NO) variable highlgihting whether the input phylum and/or class ranks differed to the phylum and/or class ranks of the lineage for the returned taxid. 'YES' might reflect a taxonomic homonym.
 ```
+3. Manually check output samples sheet to confirm `lineage_mismatch` == NO for all samples.
 
 
 
