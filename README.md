@@ -30,49 +30,57 @@ longitude: longitudinal co-ordinate of sampling location
 This section outlines the process of generating the samples sheet file (using the sample_metadata.csv file) required to run the BeeGees and skim2mito pipelines.
 1. Firstly, transfer sequence data from NHM cluster to Crop Diversity cluster:
 ```
-TBD, probably an rsync command like:
-  rsync -avzP /PATH/TO/VALENTINE/DIR [USERNAME]@gruffalo.cropdiversity.ac.uk:/PATH/TO/GRUFFALO/TARGET/DIR
+**TBD, probably an rsync command like:
+  rsync -avzP /PATH/TO/VALENTINE/DIR [USERNAME]@gruffalo.cropdiversity.ac.uk:/PATH/TO/GRUFFALO/TARGET/DIR**
 ```
 2. Once the transfer is complete, verify the MD% checksum is correct using:
 ```
-Find CLI tool to quickly do MD5 checks
-``` 
-3. Run `sample_processing.py` to generate the samples sheet:
+**Find CLI tool to quickly do MD5 checks
+**``` 
+3. Run `sample_processing.py` to generate the samples sheet, and save it to `~/projects/nhm/museomix/UKBOL_accelerated/sample_sheets/`
 ```
-  python sample_processing.py [seq_data_parent_directory] path/to/[sample_metadata_file] path/to/[output_directory] --identifier [column_name]
+  python sample_processing.py [seq_data_parent_directory] path/to/[sample_metadata_file] ~/projects/nhm/museomix/UKBOL_accelerated/sample_sheets --identifier [column_name]
 
 Additional optional arguments:
 --output-prefix [output_prefix]: Prefix for output files (defaults to input parent directory name)
 --merge: Prefer '*_merged' directories when available, fall back to non-suffixed directories
 ```
-4.Manually check generated samples sheet paths and taxonomic data parsing proceeded correctly.
+4.Manually check generated samples sheet paths and taxonomic data parsing proceeded correctly. 
 
 The generated `[samples].csv` will contain the following fields:
 | ID | forward | reverse | phylum | class | order | family | genus | species |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | 
-| UK001-A01 | abs/path/to/R1.fq.gz | abs/path/to/R2.fq.gz | Arthropoda | Insecta | Coleoptera | Carabidae | Carabus | speciousus |
-
-5..
-
-```
-```
-
-`~/projects/nhm/museomix/UKBOL_accelerated/sample_sheets/`
-
-```
-```
+| UK001-A01 | abs/path/R1.fq.gz | abs/path/R2.fq.gz | Arthropoda | Insecta | Coleoptera | Carabidae | Carabus | speciousus |
 
 
 
 ## 3. Recovering and validating barcodes with [BeeGees](https://github.com/bge-barcoding/BeeGees)
-- Requirements at a glance:
-  -
+- Requirements at a glance (see BeeGees repo for more details):
+  - Cloned BeeGees repo
+  - Populated samples sheet ([samples].csv)
+  - Conda environment with neccessary dependencies installed
 
 
 
 ## 4. Assemblying and validating mitochondrial genomes with (modified) [skim2mito](https://github.com/SchistoDan/skim2mito/tree/main)
-- Requirements at a glance:
-  -
+- Requirements at a glance (see skim2mito repo for more details):
+  - Cloned skim2mito repo
+  - Populated samples sheet ([samples].csv) *skim2mito requires the samples sheet to contain a taxonomic identifier ('taxid') column instead of the Hierarchical taxonomic lineage information (see below)
+  - Conda environment with neccessary dependencies installed
+
+
+**Retrieving taxonomic identifiers (taxid's) using hierarchical taxonomic lineage information**
+1. Run `taxid_resolver.py` to retrieve the closest valid (i.e. available) taxonomic identifier (taxid) for each sample in the samples sheet using the sample taxonomic lineage (phylum->species) information:
+```
+  python taxid_resolver.py --input [samples sheet] --email [NCBI email address] --api [NCBI API key]
+```
+* NCBI API credentials can be created by following the instructions described [here](https://support.nlm.nih.gov/kbArticle/?pn=KA-05317).
+2. The script will retrieve and append the taxid to the input samples sheet, as well as `matched_rank` and `lineage_mismatch` columns. Manually check output samples sheet to confirm `lineage_mismatch` == NO.
+```
+matched_rank: Contains the rank at which a valid taxonomic identifier could be retrieved (e.g. species)
+lineage_mismatch: Boolean (YES/NO) variable highlgihting whether the input phylum and/or class ranks differed to the phylum and/or class ranks of the lineage for the returned taxid. 'YES' might reflect a taxonomic homonym.
+```
+
 
 
 
