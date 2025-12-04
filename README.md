@@ -35,8 +35,8 @@ This section outlines the process of generating the samples sheet file (using th
 ```
 2. Once the transfer is complete, verify the MD% checksum is correct using:
 ```
-**Find CLI tool to quickly do MD5 checks
-**``` 
+**Find CLI tool to quickly do MD5 checks**
+``` 
 3. Run `sample_processing.py` to generate the samples sheet, and save it to `~/projects/nhm/museomix/UKBOL_accelerated/sample_sheets/`
 ```
   python sample_processing.py [seq_data_parent_directory] path/to/[sample_metadata_file] ~/projects/nhm/museomix/UKBOL_accelerated/sample_sheets --identifier [column_name]
