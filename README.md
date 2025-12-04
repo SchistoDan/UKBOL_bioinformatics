@@ -27,6 +27,7 @@ longitude: longitudinal co-ordinate of sampling location
 ```
 
 ## 2. Sample processing
+This section outlines the process of generating the `samples.csv` file (using the sample_metadata.csv file) required to run the BeeGees and skim2mito pipelines.
 1..
 2..
 3..
@@ -45,16 +46,14 @@ Transfer sequence data from NHM cluster to Crop Diversity cluster:
 
 
 ## 3. Recovering and validating barcodes with [BeeGees](https://github.com/bge-barcoding/BeeGees)
-
-Requirements at a glance:
-- 
+- Requirements at a glance:
+  -
 
 
 
 ## 4. Assemblying and validating mitochondrial genomes with (modified) [skim2mito](https://github.com/SchistoDan/skim2mito/tree/main)
-
-Requirements at a glance:
-- 
+- Requirements at a glance:
+  -
 
 
 
